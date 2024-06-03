@@ -1,0 +1,2 @@
+# newproject
+Trying a skill
