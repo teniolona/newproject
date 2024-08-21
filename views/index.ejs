@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors"> -->
+    <meta name="generator" content="Hugo 0.98.0">
+    <title>JAMB Recommender System</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/cover/">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+
+    <link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+    <!-- <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico"> -->
+    <!-- <link rel="stylesheet" href="../icofont/icofont.min.css"> -->
+    <meta name="theme-color" content="#712cf9">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        #chat-container {
+            margin: auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            /* width: 400px; */
+        }
+
+        h1,
+        #head-p {
+            color: black;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #chat-history {
+            color: black;
+            height: 390px;
+            overflow-y: scroll;
+        }
+
+        #inside-chathistory {
+            margin: auto 6px;
+        }
+
+        .user-message {
+            text-align: right;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            margin-bottom: 5px;
+        }
+
+        .bot-message {
+            text-align: left;
+            padding: 10px;
+            background-color: #e0f0e0;
+            border-radius: 10px;
+            margin-bottom: 5px;
+        }
+
+        form {
+            display: flex;
+        }
+
+        input {
+            flex-grow: 1;
+            margin-right: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #loader {
+            display: none;
+            /* Hide by default */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /*body {
+            background: url(https://cdn.pixabay.com/photo/2022/06/24/13/57/woman-7281733_960_720.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }*/
+
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .b-example-divider {
+            height: 3rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        }
+
+        .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+        }
+
+        .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet">
+</head>
+
+<body class="d-flex h-100 text-center text-white bg-white-subtle">
+    <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+            <div class="row justify-content-between">
+                <div class="col float-md-start mb-0 text-dark">
+                    <p class="d-inline fs-4">Dashboard</p>
+                    <!-- <i class="icofont-user"></i>
+                    <i class="icofont-brand-huawei"></i> -->
+                </div>
+                <nav class="col nav nav-masthead justify-content-center">
+                    <form action="/logout?_method=DELETE" method="post">
+                        <button class="nav-link btn btn-success text-white" type="submit">Logout</button>
+                    </form>
+                </nav>
+            </div>
+        </header><!--  -->
+
+        <main class="px-3">
+            <!-- <h2 class="text-dark">Hello <%= name %>👋🏼</h2> -->
+            <div id="chat-container" class="container-md border border-1">
+                <p class="fs-3" id="head-p">Check the System</p>
+                <div id="chat-history">
+                    <div id="inside-chathistory"></div>
+                </div>
+                <form id="chat-form">
+                    <input type="text" id="user-input" placeholder="Enter your message">
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+            <div id="loader">
+                <img src="loader.gif" width="150px" alt="Loading...">
+            </div>
+        </main>
+    </div>
+    <script>
+        const chatHistory = document.getElementById('inside-chathistory');
+        const userInput = document.getElementById('user-input');
+        const form = document.getElementById('chat-form');
+
+        async function sendMessage() {
+            const userMessage = userInput.value;
+            userInput.value = ''; // Clear input field
+            console.log(userMessage)
+            chatHistory.innerHTML += `<div class="user-message">
+                <p class="text fw-semibold mb-0">User</p>
+                ${userMessage}</div>`;
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userInput: userMessage }),
+                });
+
+                const data = await response.json();
+                console.log(data)
+                const botMessage = data.response;
+                console.log(botMessage)
+
+                /* function formatText(text) {
+                    let formattedText = "";
+                    let isBold = false; // Flag to track bold state
+
+                    for (let i = 0; i < text.length; i++) {
+                        const char = text[i];
+
+                        if (char === "*") {
+                            // Check for double asterisk (bold)
+                            if (text[i + 1] === "*") {
+                                isBold = !isBold;
+                                i++; // Skip the next character (second asterisk)
+                            } else {
+                                formattedText += "\n"; // Single asterisk: newline
+                                console.log("This ran")
+                            }
+                        } else {
+                            formattedText += isBold ? `<b>${char}</b>` : char; // Add character with optional bold tags
+                        }
+                        
+                    }
+
+                    // Remove any trailing bold tags (if applicable)
+                    formattedText = formattedText.replace(/<\/b>$/, "");
+                    console.log("This is the Formatted text");
+                    console.log(formattedText)
+                    // Add chat message to the chat history
+                    chatHistory.innerHTML += `<div class="user-message">${userMessage}</div>`;
+                    chatHistory.innerHTML += `<div class="bot-message">${formattedText}</div>`;
+                } */
+                
+
+                function formatText(text) {
+                    let formattedText = "";
+                    let isBold = false; // Flag to track bold state
+                    let currentParagraph = ""; // Buffer to store paragraph content
+
+                    for (let i = 0; i < text.length; i++) {
+                        const char = text[i];
+
+                        if (char === "*") {
+                            // Check for double asterisk (bold)
+                            if (text[i + 1] === "*") {
+                                isBold = !isBold;
+                                // Single asterisk: end of paragraph
+                                formattedText += `<p>${currentParagraph.trim()}</p>`; // Add paragraph with trimmed content
+                                currentParagraph = ""; // Clear paragraph buffer
+                                i++; // Skip the next character (second asterisk)
+                            } else {
+                                // Single asterisk: end of paragraph
+                                formattedText += `<p>${currentParagraph.trim()}</p>`; // Add paragraph with trimmed content
+                                currentParagraph = ""; // Clear paragraph buffer
+                            }
+                        } else {
+                            // currentParagraph += char; // Add character to paragraph buffer
+                            formattedText += isBold ? `<b>${char}</b>` : char; // Add character with optional bold tags
+                        }
+                    }
+
+                    // Add the last paragraph (if any)
+                    if (currentParagraph.trim()) {
+                        formattedText += `<p>${currentParagraph.trim()}</p>`;
+                    }
+
+                    // Remove any trailing bold tags (if applicable)
+                    formattedText = formattedText.replace(/<\/b>$/, "");
+                    console.log("This is the Formatted text");
+                    console.log(formattedText);
+
+                    // Add chat message to the chat history
+                    chatHistory.innerHTML += `<div class="bot-message">
+                        <p class="text fw-semibold mb-0">Recommender System</p>
+                        ${formattedText}</div>`;
+                }
+
+                const responseText = botMessage; // Replace with Gemini response
+                formatText(responseText);
+
+                // Scroll to the bottom of the chat history
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+            } catch (error) {
+                console.error('Error:', error);
+                // Handle errors gracefully, e.g., display an error message to the user
+            }
+        }
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent form submission
+            const loader = document.getElementById('loader');
+            loader.style.display = 'block'; // Show the loader
+            sendMessage().finally(() => {
+                loader.style.display = 'none'; // Hide the loader after the message is sent
+            });;
+        });
+    </script>
+</body>
+
+</html>
