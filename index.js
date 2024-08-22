@@ -26,8 +26,8 @@ const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
 // const port = process.env.PORT || 1450;
 
-const jamb_users = require("./mongodb_user")
 const brochureUser = require("./trainingdata")
+const jamb_users = require("./mongodb_user")
 
 initializePassport(
     passport,
