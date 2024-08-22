@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const MONGOURL = process.env.MONGO_URL;
+const MONGOURL = process.env.MONGODB_CONNECT_URI;
 
 // Configuring the MongoDB Database
 mongoose.connect(MONGOURL).then(() => {
