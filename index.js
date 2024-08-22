@@ -218,4 +218,4 @@ app.delete("/logout", (req, res) => {
 // console.log(userModel);
 
 // Run the server
-// app.listen(5000, () => console.log("Your server running on port 5000"));
+app.listen(5000, () => console.log("Your server running on port 5000"));
