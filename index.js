@@ -20,7 +20,7 @@ dotenv.config()
 
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require('@google/generative-ai');
 const MODEL_NAME = "gemini-1.5-flash";
-const API_KEY = process.env.GEMINI_API_KEY;
+const API_KEY = "AIzaSyA4kjxLBnSFpMOAzJWir1gq_IHnXLVnT8I";
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
@@ -155,6 +155,7 @@ app.post('/chat', checkAuth, async (req, res) => {
     } catch (error) {
         console.error('Error in chat endpoint:', error);
         res.status(500).json({ error: 'Internal Server Error' });
+        alert("Server Error! Try Again")
     }
 });
 
