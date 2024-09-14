@@ -14,6 +14,14 @@ const initializePassport = require('./passport-config');
 const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
+const cors = require("cors");
+const corsConfig = {
+    origin: "*",
+    credential: true,
+    methods: ["GET", "POST", "PUT", "DELETE"]
+};
+app.options("", cors(corsConfig));
+app.use(cors(corsConfig));
 
 app.use(express.json());
 dotenv.config()
