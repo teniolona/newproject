@@ -1,7 +1,7 @@
 {
-  "name": "userauth",
+  "name": "jambrecommender",
   "version": "1.0.0",
-  "description": "User Authentication system",
+  "description": "JAMB Recommender System",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index",
