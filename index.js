@@ -25,6 +25,7 @@ app.use(cors(corsConfig));
 
 app.use(express.json());
 dotenv.config()
+app.set('views', '/var/task/views'); // Set the views directory
 
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require('@google/generative-ai');
 const MODEL_NAME = "gemini-1.5-flash";
