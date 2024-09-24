@@ -12,6 +12,6 @@ const ml_model = new mongoose.Schema({
         type: String
     }
 });
-const brochureUser = mongoose.model("brochure_user", ml_model);
+const brochureUser = mongoose.model("brochure_users", ml_model);
 
 module.exports = brochureUser;
