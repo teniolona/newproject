@@ -171,7 +171,7 @@ app.post('/chat', checkAuth, async (req, res) => {
 // This is to get a request. Also to send 
 app.get("/", checkAuth, async (req, res) => {
     // This is to render the index.ejs file. So, it searches for the views folder and picks it out.
-    res.render("index.ejs", "", { name: jamb_users.findOne(req.user).name })
+    res.render("index.ejs")
     console.log("Hello World")
 
     // This is to send the output you want to see from the server
