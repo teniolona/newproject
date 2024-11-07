@@ -46,6 +46,14 @@
             margin-bottom: 20px;
         }
 
+        .instructions {
+            color: #616161;
+        }
+
+        .list-texts {
+            font-size: 14px;
+        }
+
         #chat-history {
             color: black;
             height: 390px;
@@ -163,9 +171,9 @@
     <link href="cover.css" rel="stylesheet">
 </head>
 
-<body class="d-flex h-100 text-center text-white bg-white-subtle">
+<body class="d-flex h-100 text-white bg-white-subtle">
     <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <header class="mb-auto">
+        <header class="mb-auto text-center">
             <div class="row justify-content-between">
                 <div class="col float-md-start mb-0 text-dark">
                     <p class="d-inline fs-4">Dashboard</p>
@@ -184,6 +192,16 @@
             <div id="chat-container" class="container-md border border-1">
                 <p class="fs-3" id="head-p">Check the System</p>
                 <div id="chat-history">
+                    <div class="instructions p-4">
+                        <p class="fs-4 text-left mb-4">Instructions</p>
+                        <ul class="list-texts text-left">
+                            <li>Make sure you're logged in before you start to prompt the chatbot.</li>
+                            <li>Say 'Hello' or any form of greeting and wait for it's response.</li>
+                            <li>After saying hello, type in the JAMB subject combinations and the 9 WAEC subjects.</li>
+                            <li>If the chatbot does not respond to your request, reload the page or check your Internet connection.</li>
+                            <li>Everytime you prompt the AI chatbot, it may take a while before the chatbot responds so, do wait patiently for it's response.</li>
+                        </ul>
+                    </div>
                     <div id="inside-chathistory"></div>
                 </div>
                 <form id="chat-form">
@@ -200,11 +218,13 @@
         const chatHistory = document.getElementById('inside-chathistory');
         const userInput = document.getElementById('user-input');
         const form = document.getElementById('chat-form');
+        const instructions = document.querySelector(".instructions");
 
         async function sendMessage() {
             const userMessage = userInput.value;
             userInput.value = ''; // Clear input field
             console.log(userMessage)
+            instructions.style.display = "none"; // Hide the instructions;
             chatHistory.innerHTML += `<div class="user-message">
                 <p class="text fw-semibold mb-0">User</p>
                 ${userMessage}</div>`;
