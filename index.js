@@ -28,7 +28,7 @@ dotenv.config()
 app.set('views', 'var/task/views'); // Set the views directory
 
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require('@google/generative-ai');
-const MODEL_NAME = "gemini-3.1-flash-lite";
+const MODEL_NAME = "gemini-1.5-flash";
 const API_KEY = "AQ.Ab8RN6KEhSxa5lktWUnnjwrn7a8XpAekX4dDsY9lq0HuDHfU6Q";
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: MODEL_NAME });
